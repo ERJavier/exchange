@@ -1,0 +1,26 @@
+{
+  "name": "exchange",
+  "version": "1.0.0",
+  "description": "exchange currency system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ERJavier/exchange.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "nestjs",
+    "mongodb",
+    "docker"
+  ],
+  "author": "Javier Cepeda <erjavierc@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ERJavier/exchange/issues"
+  },
+  "homepage": "https://github.com/ERJavier/exchange#readme"
+}
