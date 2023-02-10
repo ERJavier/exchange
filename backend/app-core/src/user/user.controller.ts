@@ -16,12 +16,14 @@ export class UserController {
   loginUser(@Body() loginUserDto: LoginUserDto) {
     return { msg: 'Logged in!'}
   }
+
   @Get('info')
   getUsers(@Request() req) {
     return {
       data: req.user
     }
   }
+  
   @Post('logout')
   logout(@Request() req) {
     req.logout(() => {
