@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
+import * as createRedisStore from 'connect-redis'
+import { Redis } from 'ioredis';
 
 import * as session from 'express-session';
 import * as passport from 'passport'
@@ -8,6 +10,12 @@ import * as passport from 'passport'
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('secure/api');
+
+  const RedisStore = createRedisStore(session);
+  const redisClient = new Redis({
+    host: process.env.REDIS_HOST,
+    port: parseInt(process.env.REDIS_PORT)
+  });
 
   app.use(
     session({
@@ -19,6 +27,9 @@ async function bootstrap() {
 
     })
   )
+
+  app.use(passport.initialize());
+  app.use(passport.session())
 
   await app.listen(process.env.PORT);
 }
