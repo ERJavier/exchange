@@ -4,6 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
+import { WalletModule } from './wallet/wallet.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -19,7 +21,9 @@ import { UserModule } from './user/user.module';
         useUnifiedTopology: true
       }
     ),
-    UserModule
+    UserModule,
+    WalletModule,
+    TransactionModule
   ],
   providers: [AppService],
 })
