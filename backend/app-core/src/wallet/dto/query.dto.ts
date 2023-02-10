@@ -1,7 +1,7 @@
 import { Transform } from "class-transformer";
 import { IsMongoId, IsOptional, IsString } from "class-validator";
 
-export class QueryDtop {
+export class QueryDto {
     @IsOptional()
     @IsString()
     @Transform((coin) => coin.value.toUpperCase())
