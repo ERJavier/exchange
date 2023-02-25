@@ -1,14 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { UserDocument, User } from '../../dist/user/schemas/user.schema';
+import { UserDocument, User } from './schemas/user.schema';
+import { HashService } from './hash.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private hashService: HashService
   ){}
 
   async getUserByEmail(email: string) {
@@ -18,5 +20,12 @@ export class UserService {
   async register(createUserDto: CreateUserDto) {
     const createUser = new this.userModel(createUserDto);
     const user = await this.getUserByEmail(createUserDto.email);
+    if(user) {
+      throw new BadRequestException('Cannot make this user');
+    }
+    
+    createUser.password = await this.hashService.hashPassword(createUser.password);
+    return createUser.save()
+
   }
 }
