@@ -1,8 +1,7 @@
-const appRoot = require('app-root-path')
 const chains = require('./chains/get')
 
 module.exports = {
-    contracts_build_directory: `${appRoot}/contracts/abis`,
+    contracts_build_directory: `contracts/abis`,
     networks: chains,
     compiler: {
         solc: {
