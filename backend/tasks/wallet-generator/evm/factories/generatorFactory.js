@@ -1,23 +1,17 @@
-const GeneratorFactoryContract = require('../contracts/abis/GeneratorFactoryContract')
-const web3 = require('web3')
+const GeneratorFactoryContract = require("../contracts/abis/GeneratorFactoryContract");
+const Web3 = require("web3");
 
-const HDWalletProvider = require('@truffle/hdwallet-provider')
-const privateKeys = [process.env.GENERATOR_PRIVATE_KEY]
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 
 class GeneratorFactory {
-    constructor(rpc) {
-        this.web3 = new Web3(
-            new HDWalletProvider(
-                privateKeys,
-                rpc
-            )
-        )
-    }
+  constructor(rpc, privateKeys) {
+    this.web3 = new Web3(new HDWalletProvider(privateKeys, rpc));
+  }
 
-    async generate() {
-        const contract = await GeneratorFactoryContract(this.web3.currentProvider)
-        return await contract.generate({ from: process.env.GENERATE_ADDRESS })
-    }
+  async generate(address) {
+    const contract = await GeneratorFactoryContract(this.web3.currentProvider);
+    return await contract.generate({ from: address });
+  }
 }
 
-module.exports = GeneratorFactory
+module.exports = GeneratorFactory;
